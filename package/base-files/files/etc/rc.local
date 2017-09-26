@@ -1,0 +1,17 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+#判断是否需要跑测试程序
+#zqy+,2017-4-27 16:32:24
+if [ -f "/etc/qca9531_test.conf" ]; then
+    grep "0" /etc/qca9531_test.conf >/dev/null
+    if [ $? -eq 0 ]; then
+        qca9531_test&
+        insmod led_test
+    fi
+else
+    qca9531_test&
+    insmod led_test
+fi
+
+exit 0
